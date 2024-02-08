@@ -1,0 +1,11 @@
+version: '3.9'
+services:
+  laravel:
+    image: airist/nomads-app:v1
+    build:
+      dockerfile: Dockerfile
+      context: ./
+    ports:
+      - "8000:80"
+    environment:
+      APP_ENV: local
