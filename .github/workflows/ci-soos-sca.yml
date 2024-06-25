@@ -1,4 +1,4 @@
-name: Integrate Snyk to Github Action (SCA)
+name: Integrate SOOS to Github Action (SCA)
 
 on:
   workflow_call:
