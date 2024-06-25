@@ -30,14 +30,5 @@ RUN mkdir -p /home/$user/.composer && \
 
 # Set working directory
 WORKDIR /var/www
+
 USER $user
-
-# # Run Migration Database
-# RUN php artisan key:generate
-# RUN php artisan migrate:refresh --seed
-
-# # Expose port 8000
-# EXPOSE 8000
-
-# # Start the Laravel application
-# CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]

@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: laravel-apps
+  labels:
+    app: laravel
+spec:
+  # initContainers:
+  #   - name: artisan-migrate
+  #     image: airist/kubernetes-nomads:v1
+  #     command: [".docker/php-artisan-migrate"]
+  #     ports:
+  #       - containerPort: 80
+  #     env:
+  #       - name: APP_URL
+  #         value: ""
+  #       - name: DB_HOST
+  #         value: mysql-db
+  #       - name: DB_PORT
+  #         value: "3306"
+  #       - name: DB_DATABASE
+  #         valueFrom:
+  #           configMapKeyRef:
+  #             key: MYSQL_DATABASE
+  #             name: mysql-config
+  #       - name: DB_USERNAME
+  #         valueFrom:
+  #           secretKeyRef:
+  #             key: MYSQL_USER
+  #             name: mysql-secret
+  #       - name: DB_PASSWORD
+  #         valueFrom:
+  #           secretKeyRef:
+  #             key: MYSQL_PASSWORD
+  #             name: mysql-secret
+  containers:
+    - name: laravel
+      image: airist/kubernetes-nomads:v1
+      imagePullPolicy: IfNotPresent
+      resources:
+        requests:
+          cpu: 100m
+          memory: 500Mi
+        limits:
+          cpu: 1500m
+          memory: 1000Mi
+      ports:
+        - containerPort: 80
+      env:
+        - name: APP_URL
+          value: ""
+        - name: DB_HOST
+          value: mysql-db
+        - name: DB_PORT
+          value: "3306"
+        - name: DB_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              key: MYSQL_DATABASE
+              name: mysql-config
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: MYSQL_USER
+              name: mysql-secret
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: MYSQL_PASSWORD
+              name: mysql-secret
+  restartPolicy: Always

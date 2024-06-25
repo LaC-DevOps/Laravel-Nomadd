@@ -1,0 +1,24 @@
+name: Integrate Snyk to Github Action (SCA)
+
+on:
+  workflow_call:
+    secrets:
+      client_id:
+        required: true
+      api_key:
+        required: true
+
+
+jobs:
+
+  soos-sca-analysis:
+    name: SOOS SCA Scan
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Run SOOS - Scan for vulnerabilities
+      uses: soos-io/soos-sca-github-action@v2 # Get Latest Version from https://github.com/marketplace/actions/soos-core-sca
+      with:
+        project_name: "Laravel Laracamp"
+        client_id: ${{ secrets.client_id }}
+        api_key: ${{ secrets.api_key }}

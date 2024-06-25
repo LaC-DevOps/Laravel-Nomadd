@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   laravel:
-    image: airist/nomads-app:v1
+    image: airist/kubernetes-nomads:v1
     build:
       dockerfile: Dockerfile
       context: ./
