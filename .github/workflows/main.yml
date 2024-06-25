@@ -35,14 +35,14 @@ jobs:
       run: vendor/bin/phpunit
 
   sca-test:
-    uses: ./.github/workflows/security-template/ci-soos-sca.yml
+    uses: ./.github/workflows/ci-soos-sca.yml
     secrets:
       client_id: ${{ secrets.SOOS_CLIENT_ID }}
       api_key: ${{ secrets.SOOS_API_KEY }}
 
   sast-test:
     # needs: sca-test
-    uses: ./.github/workflows/security-template/ci-sonarcloud-sast.yml
+    uses: ./.github/workflows/ci-sonarcloud-sast.yml
     secrets:
       GIT_HUB_TOKEN: ${{ secrets.GIT_HUB_TOKEN }} 
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
