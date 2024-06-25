@@ -10,7 +10,7 @@ on:
 jobs:
   unit-tests:
     runs-on: ubuntu-latest
-    needs: build
+    # needs: build
     steps:
     - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
       with:
