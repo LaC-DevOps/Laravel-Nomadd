@@ -19,6 +19,6 @@ jobs:
     - name: Run SOOS - Scan for vulnerabilities
       uses: soos-io/soos-sca-github-action@v2 # Get Latest Version from https://github.com/marketplace/actions/soos-core-sca
       with:
-        project_name: "Laravel Laracamp"
+        project_name: "Laravel Nomadd"
         client_id: ${{ secrets.client_id }}
         api_key: ${{ secrets.api_key }}
