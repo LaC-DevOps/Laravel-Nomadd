@@ -33,7 +33,7 @@ jobs:
       api_key: ${{ secrets.SOOS_API_KEY }}
 
   sast-test:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'release'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: sca-test
     uses: ./.github/workflows/ci-sonarcloud-sast.yml
     secrets:
@@ -49,6 +49,13 @@ jobs:
     secrets:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+  sast-test-release:
+    if: github.event_name == 'release'
+    uses: ./.github/workflows/ci-sonarcloud-sast.yml
+    secrets:
+      GIT_HUB_TOKEN: ${{ secrets.GIT_HUB_TOKEN }} 
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   build-image-production:
     if: github.event_name == 'release'
