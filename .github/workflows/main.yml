@@ -50,7 +50,7 @@ jobs:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
-  sast-test-release:
+  sast-release:
     if: github.event_name == 'release'
     uses: ./.github/workflows/ci-sonarcloud-sast.yml
     secrets:
@@ -59,6 +59,7 @@ jobs:
 
   build-image-production:
     if: github.event_name == 'release'
+    needs: sast-release
     uses: ./.github/workflows/ci-build-deploy.yml
     with:
       docker_image: 'docker.io/airist/nomadd-release-${{ github.event.release.tag_name }}'
