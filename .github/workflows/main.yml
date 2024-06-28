@@ -33,14 +33,14 @@ jobs:
       api_key: ${{ secrets.SOOS_API_KEY }}
 
   sast-test:
-    if: github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'release'
     needs: sca-test
     uses: ./.github/workflows/ci-sonarcloud-sast.yml
     secrets:
       GIT_HUB_TOKEN: ${{ secrets.GIT_HUB_TOKEN }} 
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-  build-image-dev:
+  build-image-staging:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: sast-test
     uses: ./.github/workflows/ci-build-deploy.yml
