@@ -50,6 +50,26 @@ jobs:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
+  approval-deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: build-image-staging
+    runs-on: ubuntu-latest
+    steps:
+      - name: Awaiting Approval
+        run: echo "Waiting for manual approval..."
+        continue-on-error: true
+
+  deploy-staging:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: approval-deploy
+    runs-on: ubuntu-latest
+    uses: ./.github/workflows/ci-build-deploy.yml
+    with:
+      docker_image: 'docker.io/airist/nomadd-stg'
+    secrets:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
   sast-release:
     if: github.event_name == 'release'
     uses: ./.github/workflows/ci-sonarcloud-sast.yml
