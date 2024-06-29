@@ -62,7 +62,6 @@ jobs:
   deploy-staging:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: approval-deploy
-    runs-on: ubuntu-latest
     uses: ./.github/workflows/ci-build-deploy.yml
     with:
       docker_image: 'docker.io/airist/nomadd-stg'
